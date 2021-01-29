@@ -2,13 +2,15 @@ import random
 from matplotlib import pyplot as plt
 # Basic Gradient descent algorithm
 DATA = [[1,1],[2,3],[3,1],[4,5],[5,3]]
-MAX_RANGE = 1000
+MAX_RANGE = 10
 LEARNING_RATE = 0.01
 
 def openFiles():
   f1 = open('Log.txt','w') # all outputs
-  f2 = open('I & S','w') # intercept & slope outputs
-  return [f1,f2]
+  f2 = open('I & S.txt','w') # intercept & slope outputs
+  f3 = open('Final I & S.txt','w') # Final itercept & slope output
+  f4 = open('SSR & I & S.txt','w') # SSR & intercept & slope outputs - to model minimising
+  return [f1,f2,f3]
 
 def find_SSR(slope,intercept): # sum of the squared residual
   ssr = 0
@@ -32,25 +34,28 @@ def find_d_intercept(slope,intercept): # derivative of the loss function in rela
   return d_intercept
 
 def gradient_descent(slope,intercept):
-  f1,f2 = openFiles()
+  f1,f2,f3 = openFiles()
+  f1.write(f'Configuration:\nMAX_RANGE: {MAX_RANGE}\nLEARNING RATE: {LEARNING_RATE}\nSIGFIG: {SIGFIG}\n\n')
+  f2.write(f'Configuration:\nMAX_RANGE: {MAX_RANGE}\nLEARNING RATE: {LEARNING_RATE}\nSIGFIG: {SIGFIG}\n\n')
+  f3.write(f'Configuration:\nMAX_RANGE: {MAX_RANGE}\nLEARNING RATE: {LEARNING_RATE}\nSIGFIG: {SIGFIG}\n\n')
   print(DATA)
   print(f'Slope: {slope}\nIntercept: {intercept}')
-  f1.write(f'Initial:\n\nSlope: {slope}\nIntercept: {intercept}\n')
-  f2.write(f'Initial:\n\nSlope: {slope}\nIntercept: {intercept}\n')
-  for count in range(MAX_RANGE):
+  f1.write(f'Initial:\nSlope: {slope}\nIntercept: {intercept}\n')
+  f2.write(f'Initial:\nSlope: {slope}\nIntercept: {intercept}\n')
+  for count in range(1,MAX_RANGE):
     print(f'Iteration {count}:')
     f1.write(f'Iteration {count}:\n')
     f2.write(f'Iteration {count}:\n')
     ssr = find_SSR(slope,intercept) 
-    print(f'SSR: {ssr}')
+    # print(f'SSR: {ssr}')
     f1.write(f'SSR: {ssr}\n')
     d_slope = find_d_slope(slope,intercept)
     d_intercept = find_d_intercept(slope,intercept)
-    print(f'd_slope: {d_slope}\nd_intercept: {d_intercept}')
+    # print(f'd_slope: {d_slope}\nd_intercept: {d_intercept}')
     f1.write(f'd_slope: {d_slope}\nd_intercept: {d_intercept}\n')
     step_size_slope = LEARNING_RATE * d_slope
     step_size_intercept = LEARNING_RATE * d_intercept
-    print(f'step size slope: {step_size_slope}\nStep size intercept: {step_size_intercept}')
+    # print(f'step size slope: {step_size_slope}\nStep size intercept: {step_size_intercept}')
     f1.write(f'step size slope: {step_size_slope}\nStep size intercept: {step_size_intercept}\n')
     slope -= step_size_slope # get new slope
     intercept -= step_size_intercept # get new intercept
@@ -61,6 +66,7 @@ def gradient_descent(slope,intercept):
       print('\nGraph is close')
       f1.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
       f2.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
+      f3.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
       f1.close()
       f2.close()
       return [slope,intercept]
@@ -69,8 +75,10 @@ def gradient_descent(slope,intercept):
     print('')
   f1.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
   f2.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
+  f3.write(f'Final:\n\nSlope: {slope}\nIntercept: {intercept}\n')
   f1.close()
   f2.close()
+  f3.close()
   return [slope,intercept]
   
 
