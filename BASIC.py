@@ -32,18 +32,18 @@ def gradient_descent(slope,intercept):
   print(f'Slope: {slope}\nIntercept: {intercept}')
   for count in range(MAX_RANGE):
     ssr = find_SSR(slope,intercept) 
-    # print(f'SSR: {ssr}')
+    print(f'SSR: {ssr}')
     d_slope = find_d_slope(slope,intercept)
     d_intercept = find_d_intercept(slope,intercept)
-    # print(f'd_slope: {d_slope}\nd_intercept: {d_intercept}')
+    print(f'd_slope: {d_slope}\nd_intercept: {d_intercept}')
     step_size_slope = LEARNING_RATE * d_slope
     step_size_intercept = LEARNING_RATE * d_intercept
-    # print(f'step size slope: {step_size_slope}\nStep size intercept: {step_size_intercept}')
-    slope -= step_size_slope
-    intercept -= step_size_intercept
+    print(f'step size slope: {step_size_slope}\nStep size intercept: {step_size_intercept}')
+    slope -= step_size_slope # get new slope
+    intercept -= step_size_intercept # get new intercept
     print(f'Slope: {slope}\nIntercept: {intercept}')
-    if abs(step_size_slope) <= 0.001 and abs(step_size_intercept) <= 0.001:
-      print('Graph is close')
+    if abs(step_size_slope) <= 0.001 and abs(step_size_intercept) <= 0.001: # exit if optimal values reached
+      print('\nGraph is close')
       return [slope,intercept]
     print('')
   return [slope,intercept]
