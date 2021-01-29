@@ -6,14 +6,8 @@ MAX_RANGE = 1000
 LEARNING_RATE = 0.01
 
 def openFiles():
-  try:
-    f1 = open('Log.txt','a') # all outputs
-  except:
-    f1 = open('Log.txt','w') # all outputs
-  try:
-    f2 = open('I & S.txt','a') # intercept & slope outputs
-  except:
-    f2 = open('I & S','w') # intercept & slope outputs
+  f1 = open('Log.txt','w') # all outputs
+  f2 = open('I & S','w') # intercept & slope outputs
   return [f1,f2]
 
 def find_SSR(slope,intercept): # sum of the squared residual
